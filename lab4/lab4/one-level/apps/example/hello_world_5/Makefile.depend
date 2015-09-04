@@ -1,0 +1,2 @@
+work/hello_world_5.o: hello_world_5.c ../../../include/usertraps.h \
+ ../../../include/misc.h

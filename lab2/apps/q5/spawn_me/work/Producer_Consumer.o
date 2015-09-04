@@ -1,0 +1,503 @@
+; Compiled by GCC
+.text
+	.align 2
+.proc _isspace
+.global _isspace
+_isspace:
+;  Function 'isspace'; 0 bytes of locals, 1 regs to save.
+	sw	-4(r29),r30	; push fp
+	add	r30,r0,r29	; fp = sp
+	sw	-8(r29),r31	; push ret addr
+	subui	r29,r29,#16	; alloc local storage
+	sw	0(r29),r2
+	lb	r2,3(r30)
+	addi	r31,r0,#0
+	andi	r1,r2,#0x00ff
+	seqi	r1,r1,#32
+	bnez	r1,L6
+	nop	; not filled.
+	addi	r1,r2,#-9
+	andi	r1,r1,#0x00ff
+	sleui	r1,r1,#1
+	beqz	r1,L5
+	nop	; not filled.
+L6:
+	addi	r31,r0,#1
+L5:
+	add	r1,r0,r31
+	lw	r2,0(r29)
+	lw	r31,-8(r30)
+	add	r29,r0,r30
+	lw	r30,-4(r30)
+	jr	r31
+	nop
+.endproc _isspace
+	.align 2
+.proc _isxdigit
+.global _isxdigit
+_isxdigit:
+;  Function 'isxdigit'; 0 bytes of locals, 1 regs to save.
+	sw	-4(r29),r30	; push fp
+	add	r30,r0,r29	; fp = sp
+	sw	-8(r29),r31	; push ret addr
+	subui	r29,r29,#16	; alloc local storage
+	sw	0(r29),r2
+	lb	r31,3(r30)
+	addi	r2,r0,#0
+	addi	r1,r31,#-48
+	andi	r1,r1,#0x00ff
+	sleui	r1,r1,#9
+	bnez	r1,L12
+	nop	; not filled.
+	addi	r1,r31,#-97
+	andi	r1,r1,#0x00ff
+	sleui	r1,r1,#5
+	bnez	r1,L12
+	nop	; not filled.
+	andi	r1,r31,#0x00ff
+	snei	r1,r1,#65
+	bnez	r1,L11
+	nop	; not filled.
+L12:
+	addi	r2,r0,#1
+L11:
+	add	r1,r0,r2
+	lw	r2,0(r29)
+	lw	r31,-8(r30)
+	add	r29,r0,r30
+	lw	r30,-4(r30)
+	jr	r31
+	nop
+.endproc _isxdigit
+.data
+	.align 2
+LC0:
+	.ascii "Usage: \000"
+	.align 2
+LC1:
+	.ascii " <handle_to_shared_memory_page> <handle_to_page_mapped_semaphore><proc"
+	.ascii "ess id> <process type> <s_full> <s_empty>\n\000"
+	.align 2
+LC2:
+	.ascii "Could not map the virtual address to the memory in \000"
+	.align 2
+LC3:
+	.ascii ", exiting...\n\000"
+	.align 2
+LC4:
+	.ascii "Wrong process\n\000"
+	.align 2
+LC5:
+	.ascii "Process_%d_type_%d is complete.\n\000"
+	.align 2
+LC6:
+	.ascii "Bad semaphore s_procs_completed (%d) in \000"
+.text
+	.align 2
+.proc _main
+.global _main
+_main:
+;  Function 'main'; 0 bytes of locals, 0 regs to save.
+	sw	-4(r29),r30	; push fp
+	add	r30,r0,r29	; fp = sp
+	sw	-8(r29),r31	; push ret addr
+	subui	r29,r29,#8	; alloc local storage
+	lw	r2,(r30)
+	lw	r3,4(r30)
+	jal	___main
+	nop	; not filled.
+	snei	r1,r2,#8
+	beqz	r1,L14
+	nop	; not filled.
+	addi	r29,r29,#-8
+	lhi	r10,((LC0)>>16)&0xffff
+	addui	r10,r10,(LC0)&0xffff
+	sw	(r29),r10
+	jal	_Printf
+	nop	; not filled.
+	lw	r10,(r3)
+	sw	(r29),r10
+	jal	_Printf
+	nop	; not filled.
+	lhi	r10,((LC1)>>16)&0xffff
+	addui	r10,r10,(LC1)&0xffff
+	sw	(r29),r10
+	jal	_Printf
+	nop	; not filled.
+	jal	_Exit
+	nop	; not filled.
+	addi	r29,r29,#8
+L14:
+	addi	r29,r29,#-16
+	lw	r10,4(r3)
+	sw	(r29),r10
+	addi	r10,r0,#0
+	sw	4(r29),r10
+	addi	r10,r0,#10
+	sw	8(r29),r10
+	jal	_dstrtol
+	nop	; not filled.
+	add	r2,r0,r1
+	lw	r10,8(r3)
+	sw	(r29),r10
+	addi	r10,r0,#0
+	sw	4(r29),r10
+	addi	r10,r0,#10
+	sw	8(r29),r10
+	jal	_dstrtol
+	nop	; not filled.
+	add	r9,r0,r1
+	lw	r10,12(r3)
+	sw	(r29),r10
+	addi	r10,r0,#0
+	sw	4(r29),r10
+	addi	r10,r0,#10
+	sw	8(r29),r10
+	jal	_dstrtol
+	nop	; not filled.
+	add	r5,r0,r1
+	lw	r10,16(r3)
+	sw	(r29),r10
+	addi	r10,r0,#0
+	sw	4(r29),r10
+	addi	r10,r0,#10
+	sw	8(r29),r10
+	jal	_dstrtol
+	nop	; not filled.
+	add	r8,r0,r1
+	lw	r10,20(r3)
+	sw	(r29),r10
+	addi	r10,r0,#0
+	sw	4(r29),r10
+	addi	r10,r0,#10
+	sw	8(r29),r10
+	jal	_dstrtol
+	nop	; not filled.
+	add	r4,r0,r1
+	lw	r10,24(r3)
+	sw	(r29),r10
+	addi	r10,r0,#0
+	sw	4(r29),r10
+	addi	r10,r0,#10
+	sw	8(r29),r10
+	jal	_dstrtol
+	nop	; not filled.
+	add	r7,r0,r1
+	lw	r10,28(r3)
+	sw	(r29),r10
+	addi	r10,r0,#0
+	sw	4(r29),r10
+	addi	r10,r0,#10
+	sw	8(r29),r10
+	jal	_dstrtol
+	nop	; not filled.
+	add	r6,r0,r1
+	sw	(r29),r2
+	jal	_shmat
+	nop	; not filled.
+	add	r2,r0,r1
+	addi	r29,r29,#16
+	snei	r1,r2,#0
+	bnez	r1,L15
+	nop	; not filled.
+	addi	r29,r29,#-8
+	lhi	r10,((LC2)>>16)&0xffff
+	addui	r10,r10,(LC2)&0xffff
+	sw	(r29),r10
+	jal	_Printf
+	nop	; not filled.
+	lw	r10,(r3)
+	sw	(r29),r10
+	jal	_Printf
+	nop	; not filled.
+	lhi	r10,((LC3)>>16)&0xffff
+	addui	r10,r10,(LC3)&0xffff
+	sw	(r29),r10
+	jal	_Printf
+	nop	; not filled.
+	jal	_Exit
+	nop	; not filled.
+	addi	r29,r29,#8
+L15:
+	seqi	r1,r4,#1
+	beqz	r1,L16
+	nop	; not filled.
+	addi	r29,r29,#-24
+	sw	(r29),r2
+	sw	4(r29),r5
+	sw	8(r29),r8
+	sw	12(r29),r7
+	sw	16(r29),r6
+	jal	_producer
+	nop	; not filled.
+	addi	r29,r29,#24
+	j	L17
+	nop	; not filled.
+L16:
+	snei	r1,r4,#0
+	bnez	r1,L18
+	nop	; not filled.
+	addi	r29,r29,#-24
+	sw	(r29),r2
+	sw	4(r29),r5
+	sw	8(r29),r8
+	sw	12(r29),r7
+	sw	16(r29),r6
+	jal	_consumer
+	nop	; not filled.
+	addi	r29,r29,#24
+	j	L17
+	nop	; not filled.
+L18:
+	addi	r29,r29,#-8
+	lhi	r10,((LC4)>>16)&0xffff
+	addui	r10,r10,(LC4)&0xffff
+	sw	(r29),r10
+	jal	_Printf
+	nop	; not filled.
+	addi	r29,r29,#8
+L17:
+	addi	r29,r29,#-16
+	lhi	r10,((LC5)>>16)&0xffff
+	addui	r10,r10,(LC5)&0xffff
+	sw	(r29),r10
+	sw	4(r29),r5
+	sw	8(r29),r4
+	jal	_Printf
+	nop	; not filled.
+	sw	(r29),r9
+	jal	_sem_signal
+	nop	; not filled.
+	addi	r29,r29,#16
+	snei	r1,r1,#1
+	beqz	r1,L20
+	nop	; not filled.
+	addi	r29,r29,#-8
+	lhi	r10,((LC6)>>16)&0xffff
+	addui	r10,r10,(LC6)&0xffff
+	sw	(r29),r10
+	sw	4(r29),r9
+	jal	_Printf
+	nop	; not filled.
+	lw	r3,(r3)
+	sw	(r29),r3
+	jal	_Printf
+	nop	; not filled.
+	lhi	r10,((LC3)>>16)&0xffff
+	addui	r10,r10,(LC3)&0xffff
+	sw	(r29),r10
+	jal	_Printf
+	nop	; not filled.
+	jal	_Exit
+	nop	; not filled.
+	addi	r29,r29,#8
+L20:
+	jal	_exit
+	nop
+.endproc _main
+.data
+	.align 2
+LC7:
+	.ascii "Producer %d,\tProduce: %c \n  \000"
+.text
+	.align 2
+.proc _producer
+.global _producer
+_producer:
+;  Function 'producer'; 16 bytes of locals, 11 regs to save.
+	sw	-4(r29),r30	; push fp
+	add	r30,r0,r29	; fp = sp
+	sw	-8(r29),r31	; push ret addr
+	subui	r29,r29,#72	; alloc local storage
+	sw	0(r29),r2
+	sw	4(r29),r3
+	sw	8(r29),r4
+	sw	12(r29),r5
+	sw	16(r29),r6
+	sw	20(r29),r7
+	sw	24(r29),r8
+	sw	28(r29),r9
+	sw	32(r29),r10
+	sw	36(r29),r11
+	sw	40(r29),r12
+	lw	r5,(r30)
+	lw	r11,4(r30)
+	lw	r6,8(r30)
+	lw	r10,12(r30)
+	lw	r9,16(r30)
+	addi	r12,r0,(#0x48)&0xff
+	sb	-24(r30),r12
+	addi	r12,r0,(#0x65)&0xff
+	sb	-23(r30),r12
+	addi	r12,r0,(#0x6c)&0xff
+	sb	-22(r30),r12
+	sb	-21(r30),r12
+	addi	r12,r0,(#0x6f)&0xff
+	sb	-20(r30),r12
+	addi	r12,r0,(#0x0)&0xff
+	sb	-19(r30),r12
+	addi	r12,r0,(#0x57)&0xff
+	sb	-18(r30),r12
+	addi	r12,r0,(#0x6f)&0xff
+	sb	-17(r30),r12
+	addi	r12,r0,(#0x72)&0xff
+	sb	-16(r30),r12
+	addi	r12,r0,(#0x6c)&0xff
+	sb	-15(r30),r12
+	addi	r12,r0,(#0x64)&0xff
+	sb	-14(r30),r12
+	addi	r8,r0,#11
+	addi	r4,r30,#-24
+	addi	r7,r30,#-14
+L31:
+	addi	r29,r29,#-8
+	sw	(r29),r9
+	jal	_sem_wait
+	nop	; not filled.
+	sw	(r29),r6
+	jal	_lock_acquire
+	nop	; not filled.
+	lw	r1,12(r5)
+	add	r1,r5,r1
+	lb	r12,(r4)
+	sb	(r1),r12
+	addi	r29,r29,#-8
+	lhi	r12,((LC7)>>16)&0xffff
+	addui	r12,r12,(LC7)&0xffff
+	sw	(r29),r12
+	sw	4(r29),r11
+	lw	r1,12(r5)
+	add	r1,r5,r1
+	lbu	r1,(r1)
+	sw	8(r29),r1
+	jal	_Printf
+	nop	; not filled.
+	lw	r1,12(r5)
+	addi	r3,r1,#1
+	movi2fp	f0,r3
+	movi2fp	f1,r8
+	div	f0,f0,f1
+	movfp2i	r2,f0
+	slli	r1,r2,#0x1
+	add	r1,r1,r2
+	slli	r1,r1,#0x2
+	sub	r1,r1,r2
+	sub	r1,r3,r1
+	sw	12(r5),r1
+	sw	(r29),r6
+	jal	_lock_release
+	nop	; not filled.
+	sw	(r29),r10
+	jal	_sem_signal
+	nop	; not filled.
+	addi	r29,r29,#16
+	addi	r4,r4,#1
+	sle	r1,r4,r7
+	bnez	r1,L31
+	nop	; not filled.
+	lw	r2,0(r29)
+	lw	r3,4(r29)
+	lw	r4,8(r29)
+	lw	r5,12(r29)
+	lw	r6,16(r29)
+	lw	r7,20(r29)
+	lw	r8,24(r29)
+	lw	r9,28(r29)
+	lw	r10,32(r29)
+	lw	r11,36(r29)
+	lw	r12,40(r29)
+	lw	r31,-8(r30)
+	add	r29,r0,r30
+	lw	r30,-4(r30)
+	jr	r31
+	nop
+.endproc _producer
+.data
+	.align 2
+LC8:
+	.ascii "Consumer %d,\tConsume: %c \n \000"
+.text
+	.align 2
+.proc _consumer
+.global _consumer
+_consumer:
+;  Function 'consumer'; 0 bytes of locals, 10 regs to save.
+	sw	-4(r29),r30	; push fp
+	add	r30,r0,r29	; fp = sp
+	sw	-8(r29),r31	; push ret addr
+	subui	r29,r29,#48	; alloc local storage
+	sw	0(r29),r2
+	sw	4(r29),r3
+	sw	8(r29),r4
+	sw	12(r29),r5
+	sw	16(r29),r6
+	sw	20(r29),r7
+	sw	24(r29),r8
+	sw	28(r29),r9
+	sw	32(r29),r10
+	sw	36(r29),r11
+	lw	r5,(r30)
+	lw	r10,4(r30)
+	lw	r6,8(r30)
+	lw	r9,12(r30)
+	lw	r8,16(r30)
+	addi	r4,r0,#0
+	addi	r7,r0,#11
+L43:
+	addi	r29,r29,#-8
+	sw	(r29),r9
+	jal	_sem_wait
+	nop	; not filled.
+	sw	(r29),r6
+	jal	_lock_acquire
+	nop	; not filled.
+	addi	r29,r29,#-8
+	lhi	r11,((LC8)>>16)&0xffff
+	addui	r11,r11,(LC8)&0xffff
+	sw	(r29),r11
+	sw	4(r29),r10
+	lw	r1,16(r5)
+	add	r1,r5,r1
+	lbu	r1,(r1)
+	sw	8(r29),r1
+	jal	_Printf
+	nop	; not filled.
+	lw	r1,16(r5)
+	addi	r3,r1,#1
+	movi2fp	f0,r3
+	movi2fp	f1,r7
+	div	f0,f0,f1
+	movfp2i	r2,f0
+	slli	r1,r2,#0x1
+	add	r1,r1,r2
+	slli	r1,r1,#0x2
+	sub	r1,r1,r2
+	sub	r1,r3,r1
+	sw	16(r5),r1
+	sw	(r29),r6
+	jal	_lock_release
+	nop	; not filled.
+	sw	(r29),r8
+	jal	_sem_signal
+	nop	; not filled.
+	addi	r29,r29,#16
+	addi	r4,r4,#1
+	slei	r1,r4,#10
+	bnez	r1,L43
+	nop	; not filled.
+	lw	r2,0(r29)
+	lw	r3,4(r29)
+	lw	r4,8(r29)
+	lw	r5,12(r29)
+	lw	r6,16(r29)
+	lw	r7,20(r29)
+	lw	r8,24(r29)
+	lw	r9,28(r29)
+	lw	r10,32(r29)
+	lw	r11,36(r29)
+	lw	r31,-8(r30)
+	add	r29,r0,r30
+	lw	r30,-4(r30)
+	jr	r31
+	nop
+.endproc _consumer

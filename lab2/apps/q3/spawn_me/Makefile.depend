@@ -1,0 +1,3 @@
+work/Producer_Consumer.o: Producer_Consumer.c ../../../include/lab2-api.h \
+ ../../../include/usertraps.h ../../../include/misc.h \
+ ../include/spawn.h
